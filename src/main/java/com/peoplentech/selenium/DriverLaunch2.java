@@ -23,9 +23,12 @@ public class DriverLaunch2 {
         driver.get(url);
     }
 
-    public static void closeBrowser() throws InterruptedException {
-        Thread.sleep(5000);
+    public static void closeBrowser(){
         driver.quit();
+    }
+
+    public static void clickOnXpath(String path){
+        driver.findElement(By.xpath(path)).click();
     }
 
     public static void clickOnLinkText(String linkText){
@@ -36,30 +39,35 @@ public class DriverLaunch2 {
         driver.findElement(By.id(id)).click();
     }
 
-    public static void sendkeys(String id,String keys){
+    public static void sendKeys(String id,String keys){
         driver.findElement(By.id(id)).sendKeys(keys);
     }
 
+    public static void waitFor(int second){
+        try {
+            Thread.sleep(second*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void navigateBack(){
+        driver.navigate().back();
+    }
     @Test
-    public void ebayregisterNewAccount() throws InterruptedException {
-
-        //beginning
+    public void ebayRegisterWithChrome() {
         setUpBrowser("Chrome","http://www.ebay.com");
+        waitFor(1);
+        sendKeys("gh-ac","Nike");
+        navigateBack();
+        waitFor(2);
+        closeBrowser();
 
-        //inside the test
+    }
 
-        //driver.findElement(By.xpath("//a[@href='https://reg.ebay.com/reg/PartialReg?ru=https%3A%2F%2Fwww.ebay.com%2F']")).click();
-        clickOnLinkText("register");
-        Thread.sleep(2000);
-        sendkeys("firstname","Mohammad");
-//        driver.findElement(By.id("firstname")).sendKeys("Mohammad");
-//        driver.findElement(By.id("lastname")).sendKeys("Nazmuddin");
-//        driver.findElement(By.id("Email")).sendKeys("abc123@gmail.com");
-//        driver.findElement(By.id("password")).sendKeys("abc123");
-        Thread.sleep(2000);
-        clickOnId("showpassword");
-
-        //ending
+    @Test
+    public void ebayRegisterWithFirefox(){
+        setUpBrowser("Firefox","http://www.ebay.com");
         closeBrowser();
     }
 }
