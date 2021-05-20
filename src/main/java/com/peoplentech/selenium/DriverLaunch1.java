@@ -8,7 +8,7 @@ public class DriverLaunch1 {
     public static void main(String[] args) throws InterruptedException {
 
         //setup the environment property
-        System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         // create object of chrome drive
         WebDriver driver = new ChromeDriver();
 
