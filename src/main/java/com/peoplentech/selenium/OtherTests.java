@@ -1,18 +1,16 @@
 package com.peoplentech.selenium;
 
+import ebay.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
-import java.util.WeakHashMap;
-
-public class OtherTests extends TestBase{
+public class OtherTests extends TestBase {
 
     @Test
     public void userBeAbleToPerformDragNDrop(){
-        setUpBrowser("Chrome","http://demo.guru99.com/test/drag_drop.html");
 
         WebElement source = driver.findElement(By.xpath("//li[@id='fourth'][2]"));
         WebElement destination = driver.findElement(By.id("amt8"));
@@ -25,8 +23,7 @@ public class OtherTests extends TestBase{
     }
 
     @Test
-    public void userBeAbleToPerformIFrame(){
-        setUpBrowser("Chrome","https://demoqa.com/frames");
+    public void userBeAbleToPerformIFrame() throws InterruptedException {
 
         JavascriptExecutor jSE = (JavascriptExecutor)driver;
         jSE.executeScript("window.scrollBy(0,1000);");
