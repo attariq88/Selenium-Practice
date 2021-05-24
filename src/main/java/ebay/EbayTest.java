@@ -14,7 +14,7 @@ import java.util.List;
 public class EbayTest extends TestBase {
     private static Logger logger = Logger.getLogger(EbayTest.class);
 
-    @Test
+    @Test(priority = 0)
     public void validateUserCanSearchForItemsInEbay() {
 
         String actualUrl = driver.getCurrentUrl();
@@ -43,7 +43,7 @@ public class EbayTest extends TestBase {
         logger.info(log + " has been displayed.");
     }
 
-    @Test
+    @Test(priority = 1)
     public void validateUserBeingAbleToChooseOptionFromSearchDropdown() {
 
         WebElement categoryDropdown = driver.findElement(By.id("gh-cat"));
@@ -55,7 +55,7 @@ public class EbayTest extends TestBase {
 
     }
 
-    @Test
+    @Test(enabled = false)
     public void validateUserBeingAbleToChooseOptionWithMouseHovering() {
 
         WebElement motors = driver.findElement(By.linkText("Motors"));
