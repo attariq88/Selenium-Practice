@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class EbayTest extends TestBase {
     private static Logger logger = Logger.getLogger(EbayTest.class);
 
@@ -81,5 +83,18 @@ public class EbayTest extends TestBase {
         waitFor(2);
         JavascriptExecutor jSE = (JavascriptExecutor)driver;
         jSE.executeScript("arguments[0].scrollIntoView(true);",element);
+    }
+
+    @Test
+    public void userBeAbleTohandleScrollDownElements(){
+        setUpBrowser("Chrome","https://www.ebay.com");
+
+        List<WebElement> dropdownList = driver.findElements(By.xpath("//select[@id='gh-cat']/option"));
+        System.out.println(dropdownList.size());
+
+        for (int i = 0; i < dropdownList.size(); i++) {
+//            System.out.println(dropdownList.get(i).getText());
+            System.out.println(dropdownList.get(i).getAttribute("value"));
+        }
     }
 }
