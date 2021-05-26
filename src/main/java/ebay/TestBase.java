@@ -6,11 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 
@@ -19,13 +23,27 @@ public class TestBase {
     public static WebDriver driver;
     private static final Logger logger = Logger.getLogger(TestBase.class);
 
-    @BeforeMethod
-    public static void setUpBrowser() {
-        String browserName = "Chrome";
-        String url = "https://www.ebay.com";
-        String os = "windows";
+    private static WebDriver setupCloudBrowser() throws MalformedURLException {
+        String userName = "mohammadnazmuddi_TQSaDb";
+        String accessKey = "Z6HWzYLEdPym9byxhjRr";
 
-        if (os.equalsIgnoreCase("windows")){
+        String urlOfBrowserstack = "https://" + userName + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub";
+        URL url = new URL(urlOfBrowserstack);
+
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability("os_version", "Mojave");
+        caps.setCapability("resolution", "1600x1200");
+        caps.setCapability("browser", "Chrome");
+        caps.setCapability("browser_version", "89.0");
+        caps.setCapability("os", "OS X");
+        caps.setCapability("name", "cloud execution test : 01");
+
+        WebDriver driver = new RemoteWebDriver(url, caps);
+        return driver;
+    }
+
+    private static WebDriver setupLocalDriver(String os, String browserName){
+        if (os.equalsIgnoreCase("windows")) {
             if (browserName.equalsIgnoreCase("chrome")) {
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
                 driver = new ChromeDriver();
@@ -33,7 +51,7 @@ public class TestBase {
                 System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
                 driver = new FirefoxDriver();
             }
-        }else{
+        } else {
             if (browserName.equalsIgnoreCase("chrome")) {
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
                 driver = new ChromeDriver();
@@ -42,7 +60,21 @@ public class TestBase {
                 driver = new FirefoxDriver();
             }
         }
+        return driver;
+    }
 
+    @BeforeMethod
+    public static void setUpBrowser() throws MalformedURLException {
+        String browserName = "Chrome";
+        String url = "https://www.ebay.com";
+        String os = "windows";
+        String platform = "local";
+
+        if (platform.equalsIgnoreCase("local")) {
+            driver = setupLocalDriver(os, browserName);
+        } else {
+            driver = setupCloudBrowser();
+        }
 
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

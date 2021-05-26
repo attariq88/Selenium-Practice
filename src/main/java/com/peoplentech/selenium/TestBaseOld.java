@@ -36,7 +36,7 @@ public class TestBaseOld {
         driver.get(url);
     }
 
-    @AfterMethod
+
     public static void closeBrowser() {
         waitFor(3);
         driver.quit();
@@ -77,7 +77,6 @@ public class TestBaseOld {
     public static void navigateBack() {
         driver.navigate().back();
     }
-
 
 
     public void validateEbayUrl() {

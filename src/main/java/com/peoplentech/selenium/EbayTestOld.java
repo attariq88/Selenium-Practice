@@ -67,8 +67,8 @@ public class EbayTestOld extends TestBaseOld {
     }
 
     @Test
-    public void userBeAbleToScrollDown(){
-        setUpBrowser("chrome","http://www.ebay.com");
+    public void userBeAbleToScrollDown() {
+        setUpBrowser("chrome", "http://www.ebay.com");
 
         waitFor(2);
         JavascriptExecutor jSE = (JavascriptExecutor) driver;
@@ -76,18 +76,18 @@ public class EbayTestOld extends TestBaseOld {
     }
 
     @Test
-    public void userBeAbleToScrollDownToElement(){
-        setUpBrowser("Chrome","http://www.ebay.com");
+    public void userBeAbleToScrollDownToElement() {
+        setUpBrowser("Chrome", "http://www.ebay.com");
 
         WebElement element = driver.findElement(By.linkText("Registration"));
         waitFor(2);
-        JavascriptExecutor jSE = (JavascriptExecutor)driver;
-        jSE.executeScript("arguments[0].scrollIntoView(true);",element);
+        JavascriptExecutor jSE = (JavascriptExecutor) driver;
+        jSE.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     @Test
-    public void userBeAbleTohandleScrollDownElements(){
-        setUpBrowser("Chrome","https://www.ebay.com");
+    public void userBeAbleTohandleScrollDownElements() {
+        setUpBrowser("Chrome", "https://www.ebay.com");
 
         List<WebElement> dropdownList = driver.findElements(By.xpath("//select[@id='gh-cat']/option"));
         System.out.println(dropdownList.size());
